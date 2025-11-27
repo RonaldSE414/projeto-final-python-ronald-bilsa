@@ -99,9 +99,33 @@ def buscar_aluno():
     else:
         print("Não encontrado.")
 
+def relatorio():
+    print("\n=== Relatório ===")
+
+    if not Bd:
+        print("Nenhum aluno cadastrado.")
+        return
+
+    total = len(Bd)
+    soma = 0
+    aprovados = 0
+
+    for dados in Bd.values():
+        soma += dados["nota"]
+        if dados["status"] == "Aprovado":
+            aprovados += 1
+
+    media = soma / total
+    reprovados = total - aprovados
+
+    print(f"Total de alunos: {total}")
+    print(f"Média geral: {media:.2f}")
+    print(f"Aprovados: {aprovados}")
+    print(f"Reprovados: {reprovados}")
+
 def menu():
     while True:
-        print("\n1-Cadastrar\n2-Atualizar\n3-Deletar\n4-Listar\n5-Buscar\n6-Sair")
+        print("\n1-Cadastrar\n2-Atualizar\n3-Deletar\n4-Listar\n5-Buscar\n6-Sair\n7-Relatório")
         opcao = input("Opção: ")
 
         if opcao == "1":
@@ -117,6 +141,8 @@ def menu():
         elif opcao == "6":
             print("Saindo...")
             break
+        elif opcao == "7":
+            relatorio()
         else:
             print("Inválida.")
 
